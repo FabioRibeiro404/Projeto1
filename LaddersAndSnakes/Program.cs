@@ -54,7 +54,7 @@ namespace LaddersAndSnakes
         {
             string input;
             bool played = false;
-            int val = 0;
+            int roll = 0;
             
             do
             {
@@ -87,9 +87,12 @@ namespace LaddersAndSnakes
             }while (played == true);
 
             //returns the number rolled in the die
-            return val;
+            return roll;
             
         }
+
+
+    
 
 
         
@@ -108,7 +111,7 @@ namespace LaddersAndSnakes
             {
                 
                 playerRoll(player1);
-                //buildBoard
+                
 
 
 
