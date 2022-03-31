@@ -27,17 +27,19 @@ namespace LaddersAndSnakes
             //Bruno
             //snakes = 0;
 
-            //val is 25 -1
+            //val is 25 - 1
             int val = board.Length-1;
             int invert;
 
             Console.WriteLine("\n-----------------------------------");  
-            //while cycle         
+            //while cycle that checks if the array has ended       
             while (val >-1){
-                if (val%2 == 0){                    
+                if (val%2 == 0){   
+                    //invert is -4 when the line starting number is pair                 
                     invert = -4;
                 }
                 else{
+                    //otherwise stays at 0
                     invert = 0;
                 }
                 for (int i = val; i > val-5; i--)
@@ -171,6 +173,7 @@ namespace LaddersAndSnakes
                 //buildBoard
 
             }while(winner != true);
+            Console.WriteLine($"Congratulations!! Player WON");
             
         }
     }
