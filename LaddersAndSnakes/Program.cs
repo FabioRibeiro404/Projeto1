@@ -5,40 +5,65 @@ namespace LaddersAndSnakes
     class Program
     {
         // Build board definir tamanho 
-        private static void buildBoard()                /// feito por Fabio (para o relatorio)
+        private static int[] buildBoard()                /// feito por Fabio (para o relatorio)
         {
-            
+            /*
             int[][] board = new int[5][];
             board[0] = new int[5] {2, 0, 0, 0, 0};
             board[1] = new int[5] {0, 0, 0, 1, 0};
             board[2] = new int[5] {2, 1, 0, 2, 0};
             board[3] = new int[5] {0, 0, 0, 1, 0};
             board[4] = new int[5] {2, 0, 0, 1, 0};
+            */
+
+            int [] board = new int[25];
+            for(int i = 0; i < board.Length; i++)
+            {
+                board[i] = 0;
+            }
+
+            return board;
 
         }
 
         private static void printBoard()                /// feito por Fabio (para o relatorio)
         {
-            int [,] board = new int [5,5];
+            
             //Bruno
             //ladders = 0;
             //Bruno
             //snakes = 0;
 
-            Console.WriteLine("-------------------------");
-
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    
-                    board[i,j] = 0;
-                    Console.Write($"| {board[i,j]} |");
-                    
+            int [] board = buildBoard();
+            int val = board.Length-1;
+            int invert = val;
+            Console.WriteLine("\n-----------------------------------");
+            board[16] = 1;
+            while (val >-1){
+                if (val%2 == 0){                    
+                    invert = -4;
                 }
-                Console.WriteLine("");
-                Console.WriteLine("-------------------------");
+                else{
+                    invert = 0;
+                }
+                for (int i = val; i > val-5; i--)
+                {   Console.Write($"| {i,3:d}  |"); //aparecer os números
+                    /*if(board[i] == 0)
+                    {
+                        Console.Write($"| {"",3:d} |");
+                    }
+                    else
+                    {
+                        Console.Write($"| {"P"+board[i+invert],2:d}  |"); //aparecer se o jogador tiver no quadrado
+                    } */
+                    if (val%2 == 0){
+                        invert+=2;
+                    }
+                }
+                Console.WriteLine("\n-----------------------------------");
+                val-=5;
             }
+            
         }
 
         // Roll dice (1 - 6)
