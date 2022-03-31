@@ -7,6 +7,7 @@ namespace LaddersAndSnakes
         // Build board definir tamanho 
         private static void buildBoard()
         {
+            
             int[][] board = new int[5][];
             board[0] = new int[5] {2, 0, 0, 0, 0};
             board[1] = new int[5] {0, 0, 0, 1, 0};
@@ -14,8 +15,6 @@ namespace LaddersAndSnakes
             board[3] = new int[5] {0, 0, 0, 1, 0};
             board[4] = new int[5] {2, 0, 0, 1, 0};
 
-            
-        
         }
 
         private static void printBoard()
