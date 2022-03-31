@@ -25,8 +25,8 @@ namespace LaddersAndSnakes
         // Creates 2 players
         private static void player()
         {
-            string player1 =  "P1";
-            string player2 =  "P2";           
+            string player1 =  "P1";     //Creates player 1
+            string player2 =  "P2";     //Creates player 2
         }
 
         
