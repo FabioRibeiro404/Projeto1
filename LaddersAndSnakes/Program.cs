@@ -7,6 +7,7 @@ namespace LaddersAndSnakes
         // Build board
         private static void buildBoard()
         {
+            
             int [,] board = new int [5,5];
 
             for (int i = 0; i < board.GetLength(0); i++)
@@ -18,7 +19,17 @@ namespace LaddersAndSnakes
                 Console.WriteLine("");
                 Console.WriteLine("-------------------------");
             }
+        
         }
+
+        // Roll dice (1 - 6)
+        private static int dice()
+        {
+            Random rand = new Random();
+            int dice = rand.Next(1, 7);
+            return dice;
+        }
+
         static void Main(string[] args)
         {
             buildBoard();
