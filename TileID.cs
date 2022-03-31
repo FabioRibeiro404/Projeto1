@@ -1,5 +1,5 @@
 //Gives an ID to a tile type
-        enum tileID
+        enum TileID
         {
             Normal,
             Snakes,

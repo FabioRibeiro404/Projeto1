@@ -1,4 +1,5 @@
 ﻿using System;
+using TileID;
 
 namespace LaddersAndSnakes
 {
@@ -28,6 +29,8 @@ namespace LaddersAndSnakes
             string player2 =  "P2";           
         }
 
+        
+
         // Roll dice (1 - 6)
         private static int dice()
         {
@@ -43,6 +46,7 @@ namespace LaddersAndSnakes
             
             player();
             buildBoard();
+            
             
         }
     }
