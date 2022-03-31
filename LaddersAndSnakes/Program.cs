@@ -21,6 +21,12 @@ namespace LaddersAndSnakes
             }
         
         }
+        // Creates 2 players
+        private static void player()
+        {
+            string player1 =  "P1";
+            string player2 =  "P2";           
+        }
 
         // Roll dice (1 - 6)
         private static int dice()
@@ -30,8 +36,12 @@ namespace LaddersAndSnakes
             return dice;
         }
 
+
+
         static void Main(string[] args)
         {
+            
+            player();
             buildBoard();
             
         }
