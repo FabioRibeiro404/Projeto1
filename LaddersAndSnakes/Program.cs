@@ -31,6 +31,48 @@ namespace LaddersAndSnakes
             return dice;
         }
 
+        ///makes a player roll the die to make a move
+        private static int playerRoll(string player)
+        {
+            string input;
+            bool played = false;
+            int val = 0;
+            
+            do
+            {
+                //Asks the player to roll the die
+            Console.WriteLine($"{player}, it's your turn! Press /R to roll the die: ");
+            //Reads the input of the player        
+            input = Console.ReadLine();  
+
+            //if the input is correct (R or r) rolls the die
+            if (input == "r" || input == "R")                                                   
+            {
+                //prints the number rolled
+                Console.WriteLine($"Your roll: {dice()}");
+                
+                // meter aqui buildBoard com o movimento do jogador
+                break;
+                
+            }
+            //if the input is incorrect asks to press R again with a Error Message
+            else
+            {
+                Console.WriteLine("Invalid input!!");
+                Console.WriteLine("Please use /R to roll the die ");
+            }
+            
+            //changes boolean to true so it can stop the cycle
+            played = true;
+            
+
+            }while (played == true);
+
+            //returns the number rolled in the die
+            return val;
+            
+        }
+
 
 
         static void Main(string[] args)
@@ -46,28 +88,14 @@ namespace LaddersAndSnakes
             //while there isn't a winner runs 
             do
             {
-                string input;
+                
+                playerRoll(player1);
+                //buildBoard
 
-                //Asks the player to roll the die
-                Console.WriteLine($"{player1}, it's your turn! Press /R to roll the die: ");
-                //Reads the input of the player        
-                input = Console.ReadLine();  
 
-                //if the input is correct (R or r) rolls the die
-                if (input == "r" || input == "R")                                                   
-                {
-                    //prints the number rolled
-                    Console.WriteLine($"Your roll: {dice()}");
-                    // meter aqui buildBoard com o movimento do jogador
 
-                }
-                //if the input is incorrect asks to press R again with a Error Message
-                else
-                {
-                    Console.WriteLine("Invalid input!!");
-                    Console.WriteLine("Please use /R to roll the die ");
-                    winner = true;
-                }
+                playerRoll(player2);
+                //buildBoard
 
             }while(winner != true);
             
