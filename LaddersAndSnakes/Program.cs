@@ -4,18 +4,10 @@ namespace LaddersAndSnakes
 {
     class Program
     {
-        // Build board definir tamanho 
-        private static int[] buildBoard()                /// feito por Fabio (para o relatorio)
+        // Builds the board in a single array (board)
+        private static int[] buildBoard()                /// feito por Bruno e Fabio (para o relatorio)
         {
-            /*
-            int[][] board = new int[5][];
-            board[0] = new int[5] {2, 0, 0, 0, 0};
-            board[1] = new int[5] {0, 0, 0, 1, 0};
-            board[2] = new int[5] {2, 1, 0, 2, 0};
-            board[3] = new int[5] {0, 0, 0, 1, 0};
-            board[4] = new int[5] {2, 0, 0, 1, 0};
-            */
-
+            
             int [] board = new int[25];
             for(int i = 0; i < board.Length; i++)
             {
@@ -26,7 +18,8 @@ namespace LaddersAndSnakes
 
         }
 
-        private static void printBoard()                /// feito por Fabio (para o relatorio)
+        //Transforms the single array (board) and prints it in the directions wanted
+        private static void printBoard(int[] board)                /// feito por Bruno (para o relatorio)
         {
             
             //Bruno
@@ -34,11 +27,12 @@ namespace LaddersAndSnakes
             //Bruno
             //snakes = 0;
 
-            int [] board = buildBoard();
+            //val is 25 -1
             int val = board.Length-1;
-            int invert = val;
-            Console.WriteLine("\n-----------------------------------");
-            board[16] = 1;
+            int invert;
+
+            Console.WriteLine("\n-----------------------------------");  
+            //while cycle         
             while (val >-1){
                 if (val%2 == 0){                    
                     invert = -4;
@@ -47,15 +41,15 @@ namespace LaddersAndSnakes
                     invert = 0;
                 }
                 for (int i = val; i > val-5; i--)
-                {   Console.Write($"| {i,3:d}  |"); //aparecer os números
-                    /*if(board[i] == 0)
+                {   //Console.Write($"| {i+invert,3:d}  |"); //aparecer os números
+                    if(board[i+invert] == 0)
                     {
                         Console.Write($"| {"",3:d} |");
                     }
                     else
                     {
                         Console.Write($"| {"P"+board[i+invert],2:d}  |"); //aparecer se o jogador tiver no quadrado
-                    } */
+                    } 
                     if (val%2 == 0){
                         invert+=2;
                     }
@@ -64,6 +58,21 @@ namespace LaddersAndSnakes
                 val-=5;
             }
             
+        }
+
+        private static void movePlayerByDie(int player, int moveByDie, int[] board)
+        {   
+            //vai buscar a posicao do player no array
+            int position = Array.IndexOf(board, player);
+            if (position  != -1)       //se o jogador já estiver no tabuleiro
+            {       
+                board[position+moveByDie] = player;
+                board[position] = 0;
+            }
+            else
+            {                                          //se o jogador estiver fora do tabuleiro
+                board[moveByDie-1] = player;
+            }
         }
 
         // Roll dice (1 - 6)
@@ -76,7 +85,7 @@ namespace LaddersAndSnakes
 
 
         ///makes a player roll the die to make a move
-        private static int playerRoll(string player) /// feito por Bruno (para o relatorio)
+        private static int playerRoll(int player)   /// feito por Bruno (para o relatorio)
         {
             string input;
             bool played = false;
@@ -86,7 +95,7 @@ namespace LaddersAndSnakes
             do
             {
                 //Asks the player to roll the die
-            Console.WriteLine($"{player}, it's your turn! Press /R to roll the die: ");
+            Console.WriteLine($"Player{player}, it's your turn! Press /R to roll the die: ");
             //Reads the input of the player        
             input = Console.ReadLine();  
 
@@ -94,9 +103,7 @@ namespace LaddersAndSnakes
             if (input == "r" || input == "R")                                                   
             {
                 //prints the number rolled
-                Console.WriteLine($"{player} roll: {roll}");
-                
-                // meter aqui buildBoard com o movimento do jogador
+                Console.WriteLine($"Player{player} roll: {roll}");
                 break;
                 
             }
@@ -126,27 +133,30 @@ namespace LaddersAndSnakes
         static void Main(string[] args)
         {
             bool winner = false;                    /// feito por Bruno (para o relatorio)
-            buildBoard();
+            int[] board = buildBoard();
 
             //Creates player 1
-            string player1 =  "P1";  
+            int player1 =  1;  
             //Creates player 2   
-            string player2 =  "P2";  
+            int player2 =  2;  
 
+            int moveByDie;
              
 
 
             
-
+            printBoard(board);
             //while there isn't a winner runs 
             do                                      /// feito por Bruno (para o relatorio)
             {
                 
 
-                int moveByDie;
+                
                 
                 moveByDie = playerRoll(player1);
-                printBoard();
+
+                movePlayerByDie(player1, moveByDie, board);
+                printBoard(board);
                 
                 
 
@@ -155,6 +165,8 @@ namespace LaddersAndSnakes
 
 
                 moveByDie = playerRoll(player2);
+                movePlayerByDie(player2, moveByDie, board);
+                printBoard(board);
                 
                 //buildBoard
 
