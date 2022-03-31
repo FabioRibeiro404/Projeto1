@@ -42,17 +42,23 @@ namespace LaddersAndSnakes
                     //otherwise stays at 0
                     invert = 0;
                 }
+                //for cycle that starts in the last Index and goes through the array 5 by 5 elements
                 for (int i = val; i > val-5; i--)
                 {   //Console.Write($"| {i+invert,3:d}  |"); //aparecer os números
+
+                    //if it is a normal tile prints empty
                     if(board[i+invert] == 0)
                     {
                         Console.Write($"| {"",3:d} |");
                     }
+                    //if it is a player tile prints player
                     else
                     {
-                        Console.Write($"| {"P"+board[i+invert],2:d}  |"); //aparecer se o jogador tiver no quadrado
-                    } 
-                    if (val%2 == 0){
+                        Console.Write($"| {"P"+board[i+invert],2:d}  |"); 
+                    }
+                    //changes the value of invert according to the array position    
+                    if (val%2 == 0)
+                    {
                         invert+=2;
                     }
                 }
@@ -64,13 +70,17 @@ namespace LaddersAndSnakes
 
         private static void movePlayerByDie(int player, int moveByDie, int[] board)
         {   
-            //vai buscar a posicao do player no array
+            //gets the position of the player on the board
             int position = Array.IndexOf(board, player);
-            if (position  != -1)       //se o jogador já estiver no tabuleiro
+            
+            //if the player is on the board moves normally
+            if (position  != -1)       
             {       
                 board[position+moveByDie] = player;
                 board[position] = 0;
             }
+
+            //if it isn't subtract 1 to the move and gets on the board correctly
             else
             {                                          //se o jogador estiver fora do tabuleiro
                 board[moveByDie-1] = player;
