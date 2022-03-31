@@ -15,11 +15,14 @@ namespace LaddersAndSnakes
                 {
                     Console.Write($"| {board[i,j]} |");
                 }
+                Console.WriteLine("");
+                Console.WriteLine("-------------------------");
             }
         }
         static void Main(string[] args)
         {
             buildBoard();
+            
         }
     }
 }
