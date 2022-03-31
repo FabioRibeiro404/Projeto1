@@ -49,12 +49,14 @@ namespace LaddersAndSnakes
             return dice;
         }
 
+
         ///makes a player roll the die to make a move
         private static int playerRoll(string player) /// feito por Bruno (para o relatorio)
         {
             string input;
             bool played = false;
-            int roll = 0;
+            int roll = dice();
+            
             
             do
             {
@@ -67,7 +69,7 @@ namespace LaddersAndSnakes
             if (input == "r" || input == "R")                                                   
             {
                 //prints the number rolled
-                Console.WriteLine($"Your roll: {dice()}");
+                Console.WriteLine($"{player} roll: {roll}");
                 
                 // meter aqui buildBoard com o movimento do jogador
                 break;
@@ -104,18 +106,31 @@ namespace LaddersAndSnakes
             //Creates player 1
             string player1 =  "P1";  
             //Creates player 2   
-            string player2 =  "P2";     
+            string player2 =  "P2";  
+
+             
+
+
+            
 
             //while there isn't a winner runs 
             do                                      /// feito por Bruno (para o relatorio)
             {
                 
-                playerRoll(player1);
+
+                int moveByDie;
+                
+                moveByDie = playerRoll(player1);
+                printBoard();
+                
+                
+
                 
 
 
 
-                playerRoll(player2);
+                moveByDie = playerRoll(player2);
+                
                 //buildBoard
 
             }while(winner != true);
