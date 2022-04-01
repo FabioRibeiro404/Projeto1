@@ -46,7 +46,7 @@ namespace LaddersAndSnakes
                     //if it is a normal tile prints empty
                     if(board[i+invert] == 0)
                     {
-                        Console.Write($"| {0,3:d} |");         //Fazer um if para mostrar Snakes and Ladders
+                        Console.Write($"| {"0",3:d} |");         //Fazer um if para mostrar Snakes and Ladders
                     }
                     //if it is a player tile prints player
                     else
@@ -81,9 +81,15 @@ namespace LaddersAndSnakes
             //if it isn't subtract 1 to the move and gets on the board correctly
             else
             {                                          //se o jogador estiver fora do tabuleiro
-                board[moveByDie-1] = player;           //Falta fazer quando sai do tabuleiro na parte final!!!!!
-                                                       //voltar para trás o excesso 
+                board[moveByDie-1] = player;           
+                                                        
             }
+            //else if(position + moveByDie > 25)
+            //{
+                //int backwards = (position + moveByDie) - 25;   
+                //board[position] = 25 - backwards;
+
+            //}
         }
 
         // Roll dice (1 - 6)
