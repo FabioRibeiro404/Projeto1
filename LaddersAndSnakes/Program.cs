@@ -4,8 +4,13 @@ namespace LaddersAndSnakes
 {
     class Program
     {
+        
         // Builds the board in a single array (board)
-        private static int[] buildBoard()                /// feito por Bruno e Fabio (para o relatorio)
+        /// <summary>
+        /// Board creation
+        /// </summary>
+        /// <returns>single array with 25 int's</returns>
+        private static int[] buildBoard()                // feito por Bruno e Fabio (para o relatorio)
         {
             
             int [] board = new int[25];
@@ -19,7 +24,11 @@ namespace LaddersAndSnakes
         }
 
         //Transforms the single array (board) and prints it in the directions wanted
-        private static void printBoard(int[] board)                /// feito por Bruno (para o relatorio)
+        /// <summary>
+        /// print board with player and without player
+        /// </summary>
+        /// <param name="board"> Receive board created previously</param>
+        private static void printBoard(int[] board)                // feito por Bruno (para o relatorio)
         {
             
             
@@ -67,6 +76,12 @@ namespace LaddersAndSnakes
             
         }
 
+        /// <summary>
+        /// Receive which player is playing and move the number of tiles given by the die
+        /// </summary>
+        /// <param name="player">Which player</param>
+        /// <param name="moveByDie">Number given by the die</param>
+        /// <param name="board">Board created by method buildBoard</param>
         private static void movePlayerByDie(int player, int moveByDie, int[] board)
         {   
             //gets the position of the player on the board
@@ -78,11 +93,11 @@ namespace LaddersAndSnakes
                 board[position+moveByDie] = player;
                 board[position] = 0;
             }
-            else if (position == 24)
-            {
+            //else if (position == 24)
+            //{
                 
                 
-            }
+            //}
 
 
             //if it isn't subtract 1 to the move and gets on the board correctly
@@ -91,6 +106,7 @@ namespace LaddersAndSnakes
                 board[moveByDie-1] = player;           
                                                         
             }
+            //if move backwards needed and tiles needed to move calculated
             if (position + moveByDie > 24)
             {
                 int backwards = (position + moveByDie) - 24;   
@@ -101,6 +117,10 @@ namespace LaddersAndSnakes
         }
 
         // Roll dice (1 - 6)
+        /// <summary>
+        ///  Number generator (die) 1-6
+        /// </summary>
+        /// <returns>random number between 1-6</returns>
         private static int dice()                   /// feito por Fabio (para o relatorio)
         {
             Random rand = new Random();
@@ -109,7 +129,12 @@ namespace LaddersAndSnakes
         }
 
 
-        ///makes a player roll the die to make a move
+        //makes a player roll the die to make a move
+        /// <summary>
+        /// Save the generated number by method dice
+        /// </summary>
+        /// <param name="player">which player</param>
+        /// <returns>Saved number by method die</returns>
         private static int playerRoll(int player)   /// feito por Bruno (para o relatorio)
         {
             string input;
