@@ -22,10 +22,7 @@ namespace LaddersAndSnakes
         private static void printBoard(int[] board)                /// feito por Bruno (para o relatorio)
         {
             
-            //Bruno
-            //ladders = 0;
-            //Bruno
-            //snakes = 0;
+            
 
             //val is 25 - 1
             int val = board.Length-1;
@@ -33,8 +30,8 @@ namespace LaddersAndSnakes
 
             Console.WriteLine("\n-----------------------------------");  
             //while cycle that checks if the array has ended       
-            while (val >-1){
-                if (val%2 == 0){   
+            while (val > -1){
+                if (val % 2 == 0){   
                     //invert is -4 when the line starting number is pair                 
                     invert = -4;
                 }
@@ -49,17 +46,18 @@ namespace LaddersAndSnakes
                     //if it is a normal tile prints empty
                     if(board[i+invert] == 0)
                     {
-                        Console.Write($"| {"",3:d} |");
+                        Console.Write($"| {0,3:d} |");         //Fazer um if para mostrar Snakes and Ladders
                     }
                     //if it is a player tile prints player
                     else
                     {
                         Console.Write($"| {"P"+board[i+invert],2:d}  |"); 
                     }
+                    
                     //changes the value of invert according to the array position    
-                    if (val%2 == 0)
+                    if (val % 2 == 0)
                     {
-                        invert+=2;
+                        invert += 2;
                     }
                 }
                 Console.WriteLine("\n-----------------------------------");
@@ -83,7 +81,8 @@ namespace LaddersAndSnakes
             //if it isn't subtract 1 to the move and gets on the board correctly
             else
             {                                          //se o jogador estiver fora do tabuleiro
-                board[moveByDie-1] = player;
+                board[moveByDie-1] = player;           //Falta fazer quando sai do tabuleiro na parte final!!!!!
+                                                       //voltar para trás o excesso 
             }
         }
 
@@ -139,9 +138,7 @@ namespace LaddersAndSnakes
 
 
     
-
-
-        
+   
         static void Main(string[] args)
         {
             bool winner = false;                    /// feito por Bruno (para o relatorio)
