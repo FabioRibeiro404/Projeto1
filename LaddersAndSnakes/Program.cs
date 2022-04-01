@@ -41,12 +41,13 @@ namespace LaddersAndSnakes
                 }
                 //for cycle that starts in the last Index and goes through the array 5 by 5 elements
                 for (int i = val; i > val-5; i--)
-                {   //Console.Write($"| {i+invert,3:d}  |"); //aparecer os números
+                {   
+                    //Console.Write($"| {i+invert,3:d}  |"); //aparecer os números
 
                     //if it is a normal tile prints empty
                     if(board[i+invert] == 0)
                     {
-                        Console.Write($"| {"0",3:d} |");         //Fazer um if para mostrar Snakes and Ladders
+                        Console.Write($"| {"",3:d} |");         //Fazer um if para mostrar Snakes and Ladders
                     }
                     //if it is a player tile prints player
                     else
@@ -77,6 +78,12 @@ namespace LaddersAndSnakes
                 board[position+moveByDie] = player;
                 board[position] = 0;
             }
+            else if (position == 24)
+            {
+                
+                
+            }
+
 
             //if it isn't subtract 1 to the move and gets on the board correctly
             else
@@ -84,12 +91,13 @@ namespace LaddersAndSnakes
                 board[moveByDie-1] = player;           
                                                         
             }
-            //else if(position + moveByDie > 25)
-            //{
-                //int backwards = (position + moveByDie) - 25;   
-                //board[position] = 25 - backwards;
+            if (position + moveByDie > 24)
+            {
+                int backwards = (position + moveByDie) - 24;   
+                board[position] = 24 - backwards;
 
-            //}
+            }
+        
         }
 
         // Roll dice (1 - 6)
