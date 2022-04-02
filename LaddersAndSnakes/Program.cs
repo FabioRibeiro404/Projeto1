@@ -82,7 +82,7 @@ namespace LaddersAndSnakes
         /// <param name="player">Which player</param>
         /// <param name="moveByDie">Number given by the die</param>
         /// <param name="board">Board created by method buildBoard</param>
-        private static void movePlayerByDie(int player, int moveByDie, int[] board)
+        private static Boolean movePlayerByDie(int player, int moveByDie, int[] board)
         {   
             //gets the position of the player on the board
             int position = Array.IndexOf(board, player);
@@ -102,9 +102,10 @@ namespace LaddersAndSnakes
 
                 if (newPos == 24)
                 {
-                    Console.WriteLine($"Player {player} win!!");
-                    
+                    Console.WriteLine($"Congratulations!! Player {player} WON");
+                    return true;
                 }
+                return false;
             }
 
 
@@ -112,8 +113,7 @@ namespace LaddersAndSnakes
             else
             {                                          //se o jogador estiver fora do tabuleiro
                 board[moveByDie-1] = player;
-                          
-                                                        
+                return false;                                
             }
             
         
@@ -206,7 +206,7 @@ namespace LaddersAndSnakes
                 
                 moveByDie = playerRoll(player1);
 
-                movePlayerByDie(player1, moveByDie, board);
+                winner = movePlayerByDie(player1, moveByDie, board);
                 printBoard(board);
                 
                 
@@ -216,13 +216,13 @@ namespace LaddersAndSnakes
 
 
                 moveByDie = playerRoll(player2);
-                movePlayerByDie(player2, moveByDie, board);
+                winner = movePlayerByDie(player2, moveByDie, board);
                 printBoard(board);
                 
                 //buildBoard
 
             }while(winner != true);
-            Console.WriteLine($"Congratulations!! Player WON");
+            
             
         }
     }
