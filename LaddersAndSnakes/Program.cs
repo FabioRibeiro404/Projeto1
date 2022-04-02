@@ -87,6 +87,7 @@ namespace LaddersAndSnakes
             //gets the position of the player on the board
             int position = Array.IndexOf(board, player);
             
+            
             //if the player is on the board moves normally
             if (position  != -1)       
             {       
@@ -97,27 +98,24 @@ namespace LaddersAndSnakes
                 }
                 board[newPos] = player;
                 board[position] = 0;
+
+
                 if (newPos == 24)
                 {
+                    Console.WriteLine($"Player {player} win!!");
                     
                 }
             }
-            
 
 
             //if it isn't subtract 1 to the move and gets on the board correctly
             else
             {                                          //se o jogador estiver fora do tabuleiro
-                board[moveByDie-1] = player;           
+                board[moveByDie-1] = player;
+                          
                                                         
             }
-            //if move backwards needed and tiles needed to move calculated
-            if (position + moveByDie > 24)
-            {
-                int backwards = (position + moveByDie) - 24;   
-                board[position] = 24 - backwards;
-
-            }
+            
         
         }
 
