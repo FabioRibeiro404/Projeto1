@@ -140,10 +140,20 @@ namespace LaddersAndSnakes
             //if it isn't subtract 1 to the move and gets on the board correctly
             else
             {                                          //se o jogador estiver fora do tabuleiro
+
+                Console.WriteLine(position);
                 if (board[newPos] == opponent)
                 {
-                    positionOpponent -= 1;
-                    board[positionOpponent] = opponent;
+                    if (moveByDie==1)
+                    {
+                        board[positionOpponent]=0;
+                    }
+                    else
+                    {
+                        positionOpponent -= 1;
+                        board[positionOpponent] = opponent;
+                    }
+                    
                     
 
                     Console.WriteLine($"Player {opponent} was there and was moved back 1 position; ");
@@ -166,7 +176,7 @@ namespace LaddersAndSnakes
         private static int dice()                   /// feito por Fabio (para o relatorio)
         {
             Random rand = new Random();
-            int dice = rand.Next(1, 2);
+            int dice = rand.Next(1, 3);
             return dice;
         }
 
