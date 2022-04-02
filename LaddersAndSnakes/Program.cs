@@ -90,14 +90,19 @@ namespace LaddersAndSnakes
             //if the player is on the board moves normally
             if (position  != -1)       
             {       
-                board[position+moveByDie] = player;
+                int newPos = position+moveByDie;
+                if (newPos > 24) 
+                {
+                    newPos = 24 - (newPos - 24);
+                }
+                board[newPos] = player;
                 board[position] = 0;
+                if (newPos == 24)
+                {
+                    
+                }
             }
-            //else if (position == 24)
-            //{
-                
-                
-            //}
+            
 
 
             //if it isn't subtract 1 to the move and gets on the board correctly
