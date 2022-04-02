@@ -51,12 +51,13 @@ namespace LaddersAndSnakes
                 //for cycle that starts in the last Index and goes through the array 5 by 5 elements
                 for (int i = val; i > val-5; i--)
                 {   
-                    //Console.Write($"| {i+invert,3:d}  |"); //aparecer os números
+                     
 
                     //if it is a normal tile prints empty
                     if(board[i+invert] == 0)
                     {
-                        Console.Write($"| {"",3:d} |");         //Fazer um if para mostrar Snakes and Ladders
+                        //Console.Write($"|{i+invert,2:d}    |");     //so you can see the numbers
+                        Console.Write($"| {"",3:d} |");               //Fazer um if para mostrar Snakes and Ladders
                     }
                     //if it is a player tile prints player
                     else
@@ -76,35 +77,62 @@ namespace LaddersAndSnakes
             
         }
 
+
+        
         /// <summary>
         /// Receive which player is playing and move the number of tiles given by the die
         /// </summary>
         /// <param name="player">Which player</param>
         /// <param name="moveByDie">Number given by the die</param>
         /// <param name="board">Board created by method buildBoard</param>
-        private static Boolean movePlayerByDie(int player, int moveByDie, int[] board)
+        private static Boolean movePlayerByDie(int player, int opponent, int moveByDie, int[] board)
         {   
             //gets the position of the player on the board
             int position = Array.IndexOf(board, player);
-            
-            
+            int positionOpponent = Array.IndexOf(board, opponent);
+
+            int newPos = position+moveByDie;
+
             //if the player is on the board moves normally
             if (position  != -1)       
             {       
-                int newPos = position+moveByDie;
+                
+                
+
+                
                 if (newPos > 24) 
                 {
                     newPos = 24 - (newPos - 24);
                 }
-                board[newPos] = player;
-                board[position] = 0;
-
+                
 
                 if (newPos == 24)
                 {
                     Console.WriteLine($"Congratulations!! Player {player} WON");
                     return true;
                 }
+                
+                
+                board[position] = 0;               
+                if (board[newPos] == opponent)
+                {
+                    positionOpponent -= 1;
+                    board[positionOpponent] = opponent;
+                    
+
+                    Console.WriteLine($"Player {opponent} was there and was moved back 1 position; ");
+
+                }
+                board[newPos] = player;
+                
+
+                Console.WriteLine(board[positionOpponent]);
+                Console.WriteLine(newPos);
+                Console.WriteLine(positionOpponent);
+
+                
+                
+
                 return false;
             }
 
@@ -112,6 +140,17 @@ namespace LaddersAndSnakes
             //if it isn't subtract 1 to the move and gets on the board correctly
             else
             {                                          //se o jogador estiver fora do tabuleiro
+                if (board[newPos] == opponent)
+                {
+                    positionOpponent -= 1;
+                    board[positionOpponent] = opponent;
+                    
+
+                    Console.WriteLine($"Player {opponent} was there and was moved back 1 position; ");
+
+                }
+
+            
                 board[moveByDie-1] = player;
                 return false;                                
             }
@@ -127,7 +166,7 @@ namespace LaddersAndSnakes
         private static int dice()                   /// feito por Fabio (para o relatorio)
         {
             Random rand = new Random();
-            int dice = rand.Next(1, 7);
+            int dice = rand.Next(1, 2);
             return dice;
         }
 
@@ -156,7 +195,7 @@ namespace LaddersAndSnakes
             if (input == "r" || input == "R")                                                   
             {
                 //prints the number rolled
-                Console.WriteLine($"Player{player} roll: {roll}");
+                Console.WriteLine($"\nPlayer{player} roll: {roll}; ");
                 break;
                 
             }
@@ -206,11 +245,14 @@ namespace LaddersAndSnakes
                 
                 moveByDie = playerRoll(player1);
 
-                winner = movePlayerByDie(player1, moveByDie, board);
+                winner = movePlayerByDie(player1, player2, moveByDie, board);
                 printBoard(board);
 
                 if (winner == true)
-                break;
+                {
+                    break;
+                }
+                
                 
                 
 
@@ -219,10 +261,11 @@ namespace LaddersAndSnakes
 
 
                 moveByDie = playerRoll(player2);
-                winner = movePlayerByDie(player2, moveByDie, board);
+
+                winner = movePlayerByDie(player2, player1, moveByDie, board);
                 printBoard(board);
                 
-                //buildBoard
+                
 
             }
             
