@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace LaddersAndSnakes
 {
@@ -198,7 +198,7 @@ namespace LaddersAndSnakes
             
             printBoard(board);
             //while there isn't a winner runs 
-            do                                      /// feito por Bruno (para o relatorio)
+            while(winner != true)                                    /// feito por Bruno (para o relatorio)
             {
                 
 
@@ -208,6 +208,9 @@ namespace LaddersAndSnakes
 
                 winner = movePlayerByDie(player1, moveByDie, board);
                 printBoard(board);
+
+                if (winner == true)
+                break;
                 
                 
 
@@ -221,7 +224,7 @@ namespace LaddersAndSnakes
                 
                 //buildBoard
 
-            }while(winner != true);
+            }
             
             
         }
