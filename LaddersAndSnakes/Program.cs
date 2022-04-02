@@ -4,19 +4,30 @@ namespace LaddersAndSnakes
 {
     class Program
     {
+
         
         // Builds the board in a single array (board)
         /// <summary>
         /// Board creation
         /// </summary>
         /// <returns>single array with 25 int's</returns>
-        private static int[] buildBoard()                // feito por Bruno e Fabio (para o relatorio)
+        private static int[] buildBoard(Random rand)                // feito por Bruno e Fabio (para o relatorio)
         {
+            int cobraPosition = rand.Next(10,25);
+            
             
             int [] board = new int[25];
             for(int i = 0; i < board.Length; i++)
             {
-                board[i] = 0;
+                if (cobraPosition == i)
+                {
+                    board[i] = 3;
+                }
+                else
+                {
+                    board[i] = 0;
+
+                }                
             }
 
             return board;
@@ -58,6 +69,11 @@ namespace LaddersAndSnakes
                     {
                         //Console.Write($"|{i+invert,2:d}    |");     //so you can see the numbers
                         Console.Write($"| {"",3:d} |");               //Fazer um if para mostrar Snakes and Ladders
+                    }
+                    //if it is a "Cobra" tile prints "C"
+                    else if (board[i+invert] == 3)
+                    {
+                        Console.Write($"| {"C",2:d}  |");
                     }
                     //if it is a player tile prints player
                     else
@@ -173,9 +189,8 @@ namespace LaddersAndSnakes
         ///  Number generator (die) 1-6
         /// </summary>
         /// <returns>random number between 1-6</returns>
-        private static int dice()                   /// feito por Fabio (para o relatorio)
-        {
-            Random rand = new Random();
+        private static int dice(Random rand)                   /// feito por Fabio (para o relatorio)
+        {           
             int dice = rand.Next(1, 3);
             return dice;
         }
@@ -187,11 +202,11 @@ namespace LaddersAndSnakes
         /// </summary>
         /// <param name="player">which player</param>
         /// <returns>Saved number by method die</returns>
-        private static int playerRoll(int player)   /// feito por Bruno (para o relatorio)
+        private static int playerRoll(int player, Random rand)   /// feito por Bruno (para o relatorio)
         {
             string input;
             bool played = false;
-            int roll = dice();
+            int roll = dice(rand);
             
             
             do
@@ -232,8 +247,11 @@ namespace LaddersAndSnakes
    
         static void Main(string[] args)
         {
+            Random rand = new Random();
             bool winner = false;                    /// feito por Bruno (para o relatorio)
-            int[] board = buildBoard();
+            int[] board = buildBoard(rand);
+
+            
 
             //Creates player 1
             int player1 =  1;  
@@ -253,7 +271,7 @@ namespace LaddersAndSnakes
 
                 
                 
-                moveByDie = playerRoll(player1);
+                moveByDie = playerRoll(player1, rand);
 
                 winner = movePlayerByDie(player1, player2, moveByDie, board);
                 printBoard(board);
@@ -270,7 +288,7 @@ namespace LaddersAndSnakes
 
 
 
-                moveByDie = playerRoll(player2);
+                moveByDie = playerRoll(player2, rand);
 
                 winner = movePlayerByDie(player2, player1, moveByDie, board);
                 printBoard(board);
