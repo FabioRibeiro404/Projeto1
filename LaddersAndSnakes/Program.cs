@@ -5,6 +5,20 @@ namespace LaddersAndSnakes
     class Program
     {
 
+        private static int[] boostMaker(int amount, int min, int max, Random rand)
+        {
+
+            int [] array = new int [amount];
+
+
+            for(int i = 0; i< amount; i++)
+            {
+                array[i] = rand.Next(min,max);               
+            }
+
+            return array;
+        }
+
         
         // Builds the board in a single array (board)
         /// <summary>
@@ -13,21 +27,63 @@ namespace LaddersAndSnakes
         /// <returns>single array with 25 int's</returns>
         private static int[] buildBoard(Random rand)                // feito por Bruno e Fabio (para o relatorio)
         {
-            int cobraPosition = rand.Next(10,25);
+            int cobraPosition = rand.Next(10,24);
+            int amountBoost = rand.Next(0,3);
+            int amountUTurn = rand.Next(0,3);
+            int [] boostPosition = new int [amountBoost];
+            int [] uTurnPosition = new int [amountUTurn];
+
+
+            if (amountBoost != 0)
+            {
+                boostPosition = boostMaker(amountBoost,1, 20, rand);
+            }
+            if (amountUTurn != 0)
+            {
+                uTurnPosition = boostMaker(amountUTurn,5, 24, rand);
+            }
+
+            
+
             
             
+
             int [] board = new int[25];
             for(int i = 0; i < board.Length; i++)
             {
                 if (cobraPosition == i)
                 {
-                    board[i] = 3;
+                    board[i] = 4;
                 }
+
                 else
                 {
                     board[i] = 0;
 
-                }                
+                }  
+
+                if (amountBoost != 0)
+                {
+                    for (int j = 0; j<amountBoost ; j++)
+                    {
+                        if (boostPosition[j]== i)
+                        {
+                            board[i] = 5;
+                        }
+                        
+                    }
+                }
+                if (amountUTurn != 0)
+                {
+                    for (int j = 0; j<amountUTurn ; j++)
+                    {
+                        if (uTurnPosition[j]== i)
+                        {
+                            board[i] = 6;
+                        }
+                        
+                    }
+                }                     
             }
 
             return board;
@@ -71,9 +127,17 @@ namespace LaddersAndSnakes
                         Console.Write($"| {"",3:d} |");               //Fazer um if para mostrar Snakes and Ladders
                     }
                     //if it is a "Cobra" tile prints "C"
-                    else if (board[i+invert] == 3)
+                    else if (board[i+invert] == 4)
                     {
                         Console.Write($"| {"C",2:d}  |");
+                    }
+                    else if (board[i+invert] == 5)
+                    {
+                        Console.Write($"| {"B",2:d}  |");
+                    }
+                    else if (board[i+invert] == 6)
+                    {
+                        Console.Write($"| {"U",2:d}  |");
                     }
                     //if it is a player tile prints player
                     else
@@ -106,82 +170,113 @@ namespace LaddersAndSnakes
             //gets the position of the player on the board
             int position = Array.IndexOf(board, player);
             int positionOpponent = Array.IndexOf(board, opponent);
+            bool normalTile = default;
 
             int newPos = position+moveByDie;
 
-            //if the player is on the board moves normally
-            if (position  != -1)       
-            {       
-                
-                
+            while(normalTile != true)
+            {
+                //if the player is on the board moves normally
+                if (position  != -1)       
+                {       
+                    
+                    if (newPos > 24) 
+                    {
+                        newPos = 24 - (newPos - 24);
+                    }                
 
-                
-                if (newPos > 24) 
-                {
-                    newPos = 24 - (newPos - 24);
-                }
-                
+                    if (newPos == 24)
+                    {
+                        Console.WriteLine($"Congratulations!! Player {player} WON");
+                        return true;
+                    }
 
-                if (newPos == 24)
-                {
-                    Console.WriteLine($"Congratulations!! Player {player} WON");
-                    return true;
-                }
-                
-                
-                board[position] = 0;               
-                if (board[newPos] == opponent)
-                {
-                    positionOpponent -= 1;
-                    board[positionOpponent] = opponent;
                     
 
-                    Console.WriteLine($"Player {opponent} was there and was moved back 1 position; ");
-
-                }
-                board[newPos] = player;
-                
-
-                Console.WriteLine(board[positionOpponent]);
-                Console.WriteLine(newPos);
-                Console.WriteLine(positionOpponent);
-
-                
-                
-
-                return false;
-            }
-
-
-            //if it isn't subtract 1 to the move and gets on the board correctly
-            else
-            {                                          //se o jogador estiver fora do tabuleiro
-
-                Console.WriteLine(position);
-                if (board[newPos] == opponent)
-                {
-                    if (moveByDie==1)
-                    {
-                        board[positionOpponent]=0;
-                    }
-                    else
+                                
+                    board[position] = 0;               
+                    if (board[newPos] == opponent)
                     {
                         positionOpponent -= 1;
                         board[positionOpponent] = opponent;
-                    }
-                    
-                    
+                        
 
-                    Console.WriteLine($"Player {opponent} was there and was moved back 1 position; ");
+                        Console.WriteLine($"Player {opponent} was there and was moved back 1 position; ");
+
+                    }
+                    if (newPos == 0)
+                    {
+                        normalTile = true;
+                    }
+
+                    else if (board[newPos] == 4)
+                    {
+                        newPos = 0;
+                        Console.WriteLine($"Player{player} was in a Cobra Tile! Moved back to the start of the board; ");
+
+                    }
+
+                    else if (board[newPos] == 5)
+                    {
+                        newPos += 2;
+                        Console.WriteLine($"Player{player} was in a Boost Tile! Advanced 2 positions; ");
+                    }
+
+                    else if (board[newPos] == 6)
+                    {
+                        newPos -= 2;
+                        Console.WriteLine($"Player{player} was in a U-Turn Tile! Moved back 2 positions; ");
+                    }
+
+                    board[newPos] = player;
+                    
 
                 }
 
-            
-                board[moveByDie-1] = player;
-                return false;                                
+
+                //if it isn't subtract 1 to the move and gets on the board correctly
+                else
+                {                                          //se o jogador estiver fora do tabuleiro
+
+                    Console.WriteLine(position);
+                    if (board[newPos] == opponent)
+                    {
+                        if (moveByDie==1)
+                        {
+                            board[positionOpponent]=0;
+                        }
+                        else
+                        {
+                            positionOpponent -= 1;
+                            board[positionOpponent] = opponent;
+                        }
+
+                       Console.WriteLine($"Player {opponent} was there and was moved back 1 position; ");
+                    }
+
+                    if (newPos == 0)
+                    {
+                        normalTile = true;
+                    }
+
+                    else if (board[newPos] == 5)
+                    {
+                        newPos += 2;
+                        Console.WriteLine($"Player{player} was in a Boost Tile! Advanced 2 positions; ");
+                    }
+
+                    else if (board[newPos] == 6)
+                    {
+                        newPos += 2;
+                        Console.WriteLine($"Player{player} was in a U-Turn Tile! Moved back 2 positions; ");
+                    }
+               
+                    board[newPos] = player;                                                   
+                }
+                return false;
+                               
             }
-            
-        
+            return false;       
         }
 
         // Roll dice (1 - 6)
@@ -191,7 +286,7 @@ namespace LaddersAndSnakes
         /// <returns>random number between 1-6</returns>
         private static int dice(Random rand)                   /// feito por Fabio (para o relatorio)
         {           
-            int dice = rand.Next(1, 3);
+            int dice = rand.Next(1, 7);
             return dice;
         }
 
